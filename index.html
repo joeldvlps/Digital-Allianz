@@ -27,8 +27,8 @@ h2 { font-size: clamp(2rem, 4vw, 2.5rem); }
 /* Navigation */
 .navbar { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); z-index: 1000; padding: 1rem 0; }
 .nav-container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-size: 1.5rem; font-weight: 700; color: #111; letter-spacing: -0.02em; text-decoration: none; }
-.logo span { color: var(--primary); }
+.logo { display: inline-flex; align-items: center; text-decoration: none; }
+.brand-logo { height: 40px; width: auto; object-fit: contain; }
 .nav-links { display: flex; gap: 2rem; list-style: none; }
 .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
 .nav-links a:hover { color: var(--primary); }
@@ -188,7 +188,7 @@ footer { background: #111827; color: #fff; padding: 6rem 0 2rem; border-top: 1px
 
 <nav class="navbar">
   <div class="container nav-container">
-    <a href="#" class="logo">Digital<span>Allianz</span></a>
+    <a href="#" class="logo"><img src="logo.jpg" alt="Digital Allianz" class="brand-logo"></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
@@ -485,7 +485,7 @@ footer { background: #111827; color: #fff; padding: 6rem 0 2rem; border-top: 1px
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#" class="logo">Digital<span>Allianz</span></a>
+        <a href="#" class="logo"><img src="logo.jpg" alt="Digital Allianz" class="brand-logo"></a>
         <p>Architecting the digital foundation for Ghana's most ambitious enterprises. Secure, scalable, and automated solutions for the modern economy.</p>
       </div>
       <div class="footer-col">
