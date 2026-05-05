@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Allianz — Enterprise Digital Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* CSS Reset and Variables */
+:root {
+  --primary: #0542cc;
+  --primary-dark: #032b85;
+  --bg-chalk: #ffffff;
+  --bg-alt: #f8f9fa;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --font-sans: 'Inter', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); color: var(--text-main); background: var(--bg-chalk); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+h1, h2, h3 { font-weight: 700; color: #111827; letter-spacing: -0.02em; line-height: 1.2; }
+h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+h2 { font-size: clamp(2rem, 4vw, 2.5rem); }
+
+/* Navigation */
+.navbar { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); z-index: 1000; padding: 1rem 0; }
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: 700; color: #111; letter-spacing: -0.02em; text-decoration: none; }
+.logo span { color: var(--primary); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+.nav-links a:hover { color: var(--primary); }
+
+/* Buttons */
+.btn { display: inline-block; padding: 0.75rem 1.5rem; border-radius: 4px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; border: none; font-size: 0.95rem; text-align: center; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--border); }
+.btn-outline:hover { border-color: var(--text-main); }
+
+/* Hero Section */
+.hero { padding: 12rem 0 8rem; background: var(--bg-alt); text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 100%; background: radial-gradient(circle at top right, rgba(5,66,204,0.05) 0%, transparent 40%); pointer-events: none; }
+.hero-content { max-width: 800px; margin: 0 auto; position: relative; }
+.hero-eyebrow { font-size: 0.875rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+.hero p { font-size: 1.25rem; color: var(--text-muted); margin: 1.5rem auto 2.5rem; max-width: 600px; }
+.hero-actions { display: flex; gap: 1rem; justify-content: center; }
+
+/* Marquee */
+.marquee-wrap { overflow: hidden; background: #111827; color: #fff; padding: 1.5rem 0; border-top: 1px solid #374151; border-bottom: 1px solid #374151; }
+.marquee-track { display: flex; gap: 3rem; animation: marquee 30s linear infinite; white-space: nowrap; }
+.marquee-item { font-size: 0.875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #9ca3af; }
+.marquee-item span { color: var(--primary); margin-right: 3rem; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* Shared Section Styles */
+section { padding: 6rem 0; }
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-header p { color: var(--text-muted); font-size: 1.125rem; max-width: 600px; margin: 1rem auto 0; }
+
+/* About Section */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.about-text p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1.05rem; }
+.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.stat-card { background: var(--bg-alt); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.stat-num { font-size: 3rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; line-height: 1; }
+.stat-label { color: var(--text-muted); font-size: 0.875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Services Section */
+.services { background: var(--bg-alt); }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+.service-card { padding: 2.5rem; border: 1px solid var(--border); border-radius: 8px; transition: all 0.3s ease; background: #fff; }
+.service-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-color: var(--primary); transform: translateY(-5px); }
+.service-num { font-size: 0.875rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; font-family: monospace; }
+.service-title { font-size: 1.5rem; margin-bottom: 1rem; }
+.service-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+/* Process Section */
+.steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 3rem; position: relative; }
+.step { position: relative; z-index: 1; }
+.step-num { font-size: 4rem; font-weight: 800; color: var(--bg-alt); line-height: 1; margin-bottom: 1rem; transition: color 0.3s; -webkit-text-stroke: 1px var(--border); }
+.step:hover .step-num { color: var(--primary); -webkit-text-stroke: 0; }
+.step-title { font-size: 1.25rem; margin-bottom: 0.75rem; }
+.step-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+/* Signup Section */
+.signup { background: var(--bg-alt); }
+.signup-wrap { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; }
+.signup-info .tagline { font-size: 1.25rem; font-style: italic; color: var(--text-main); border-left: 4px solid var(--primary); padding-left: 1.5rem; margin-bottom: 2.5rem; font-weight: 500; }
+.signup-info ul { list-style: none; }
+.signup-info li { padding: 1rem 0; border-bottom: 1px solid var(--border); color: var(--text-muted); display: flex; align-items: flex-start; gap: 1rem; font-size: 0.95rem; }
+.signup-info li::before { content: '✓'; color: var(--primary); font-weight: bold; background: rgba(5,66,204,0.1); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; }
+
+.form-card { background: #fff; padding: 3rem; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.form-title { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.form-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem; }
+.form-group { margin-bottom: 1.5rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.05em; }
+input, select, textarea { width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border); border-radius: 4px; font-family: inherit; font-size: 1rem; outline: none; transition: all 0.2s; background: var(--bg-alt); color: var(--text-main); }
+input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(5,66,204,0.1); background: #fff; }
+textarea { resize: vertical; min-height: 100px; }
+
+.pain-section { margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); }
+.pain-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+.pain-subtitle { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem; }
+.checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+.check-item { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.95rem; color: var(--text-main); cursor: pointer; }
+.check-item input[type="checkbox"] { width: 1.1rem; height: 1.1rem; margin-top: 0.2rem; cursor: pointer; accent-color: var(--primary); }
+
+.submit-btn { width: 100%; padding: 1.125rem; font-size: 1rem; margin-top: 1rem; }
+.form-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 1.5rem; text-align: center; }
+
+/* Admin Section */
+.admin-section { display: none; background: #111827; padding: 6rem 0; }
+.admin-section.visible { display: block; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; border-bottom: 1px solid #374151; padding-bottom: 1.5rem; }
+.admin-header h2 { color: #fff; }
+.admin-login { max-width: 420px; margin: 0 auto; background: #1f2937; padding: 3rem; border-radius: 8px; border: 1px solid #374151; }
+.admin-login h3 { color: #fff; margin-bottom: 1rem; }
+.admin-login label { color: #d1d5db; }
+.admin-login input { background: #111827; border-color: #374151; color: #fff; }
+.admin-login input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(5,66,204,0.2); }
+.admin-login p { color: #9ca3af; font-size: 0.95rem; margin-bottom: 2rem; }
+.admin-password-hint { font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem; }
+
+.admin-stats { display: flex; gap: 1.5rem; margin-bottom: 3rem; flex-wrap: wrap; }
+.admin-stat { background: #1f2937; padding: 1.5rem 2rem; border-radius: 8px; flex: 1; min-width: 200px; border-left: 4px solid var(--primary); }
+.admin-stat-num { font-size: 2.5rem; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 0.5rem; }
+.admin-stat-label { font-size: 0.875rem; color: #9ca3af; text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; }
+
+.table-responsive { overflow-x: auto; background: #1f2937; border-radius: 8px; border: 1px solid #374151; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 1.25rem 1.5rem; text-align: left; }
+th { background: #111827; color: #9ca3af; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #374151; white-space: nowrap; }
+td { color: #d1d5db; font-size: 0.95rem; border-bottom: 1px solid #374151; vertical-align: top; }
+tbody tr:hover td { background: #374151; }
+.badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; background: rgba(5, 150, 105, 0.2); color: #34d399; border: 1px solid rgba(5, 150, 105, 0.3); text-transform: uppercase; letter-spacing: 0.05em; }
+
+.expand-btn { background: transparent; color: var(--primary); border: 1px solid var(--primary); padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s; }
+.expand-btn:hover { background: var(--primary); color: #fff; }
+
+.detail-row { display: none; }
+.detail-row.open { display: table-row; }
+.detail-row td { background: #111827; padding: 2rem 1.5rem; border-bottom: 2px solid #374151; }
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+.detail-item label { color: #6b7280; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem; }
+.detail-item p { color: #f3f4f6; font-size: 0.95rem; line-height: 1.5; }
+
+/* Footer */
+footer { background: #111827; color: #fff; padding: 6rem 0 2rem; border-top: 1px solid #374151; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+.footer-brand .logo { color: #fff; margin-bottom: 1.5rem; display: inline-block; }
+.footer-brand p { color: #9ca3af; max-width: 350px; line-height: 1.7; font-size: 0.95rem; }
+.footer-col h4 { color: #fff; margin-bottom: 1.5rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.footer-col a { display: block; color: #9ca3af; text-decoration: none; margin-bottom: 1rem; font-size: 0.95rem; transition: color 0.2s; }
+.footer-col a:hover { color: #fff; }
+.footer-bottom { border-top: 1px solid #374151; padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; color: #6b7280; font-size: 0.875rem; }
+
+/* Utils */
+.toast { position: fixed; bottom: 2rem; right: 2rem; background: #10b981; color: #fff; padding: 1rem 2rem; border-radius: 4px; font-weight: 600; transform: translateY(100px); opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.toast.show { transform: translateY(0); opacity: 1; }
+.admin-toggle { position: fixed; bottom: 1rem; left: 1rem; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; z-index: 1000; opacity: 0.5; transition: opacity 0.2s; font-family: monospace; }
+.admin-toggle:hover { opacity: 1; background: #fff; }
+
+@media (max-width: 900px) {
+  .about-grid, .signup-wrap, .footer-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .checkbox-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  section { padding: 4rem 0; }
+  .hero { padding: 8rem 0 4rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-container">
+    <a href="#" class="logo">Digital<span>Allianz</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#signup" class="btn btn-primary">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Enterprise Digital Solutions for Ghana</div>
+      <h1>Accelerate Your Business with a <span style="color: var(--primary);">Complete Digital Foundation</span></h1>
+      <p>We partner with ambitious enterprises and entrepreneurs to design, build, and automate scalable digital infrastructures. Focus on growth while we handle your technology.</p>
+      <div class="hero-actions">
+        <a href="#signup" class="btn btn-primary">Start Your Transformation</a>
+        <a href="#services" class="btn btn-outline">Explore Capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-item">Web Architecture <span>//</span></div>
+    <div class="marquee-item">Digital Transformation <span>//</span></div>
+    <div class="marquee-item">Process Automation <span>//</span></div>
+    <div class="marquee-item">Financial Dashboards <span>//</span></div>
+    <div class="marquee-item">Brand Growth <span>//</span></div>
+    <div class="marquee-item">Data Integration <span>//</span></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="marquee-item">Web Architecture <span>//</span></div>
+    <div class="marquee-item">Digital Transformation <span>//</span></div>
+    <div class="marquee-item">Process Automation <span>//</span></div>
+    <div class="marquee-item">Financial Dashboards <span>//</span></div>
+    <div class="marquee-item">Brand Growth <span>//</span></div>
+    <div class="marquee-item">Data Integration <span>//</span></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="hero-eyebrow">Corporate Profile</div>
+        <h2>Empowering the Next Generation of Industry Leaders</h2>
+        <p>Digital Allianz is a premier technology partner dedicated to equipping Ghanaian businesses with enterprise-grade digital solutions. We bridge the gap between traditional operations and the modern, connected economy.</p>
+        <p>We go beyond simple websites. We architect comprehensive digital ecosystems—from customer-facing interfaces to robust internal automation and financial tracking systems. We manage the complexity of your technology so you can maintain operational excellence.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">360°</div>
+          <div class="stat-label">Digital Coverage</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Core Pillars</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">GH</div>
+          <div class="stat-label">Local Expertise</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Managed Systems</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="services">
+  <div class="container">
+    <div class="section-header">
+      <div class="hero-eyebrow">Our Capabilities</div>
+      <h2>Enterprise-Grade Services</h2>
+      <p>Comprehensive digital solutions engineered for scalability, security, and performance.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3 class="service-title">Web & Application Engineering</h3>
+        <p class="service-desc">We build high-performance, secure, and mobile-optimized digital platforms. From corporate websites to complex web applications, we ensure your brand commands authority online.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3 class="service-title">Growth & Acquisition Strategy</h3>
+        <p class="service-desc">Data-driven marketing operations encompassing search engine optimization (SEO), targeted media campaigns, and structured content strategies to drive measurable business growth.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3 class="service-title">Financial Intelligence Systems</h3>
+        <p class="service-desc">Implementation of modern digital finance tools, including automated invoicing, secure payment gateways, and real-time operational dashboards for complete financial visibility.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <h3 class="service-title">Process Automation</h3>
+        <p class="service-desc">We identify workflow bottlenecks and deploy intelligent automation to handle repetitive administrative tasks, reducing operational costs and minimizing human error.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="container">
+    <div class="section-header">
+      <div class="hero-eyebrow">Deployment Methodology</div>
+      <h2>A Structured Path to Digital Maturity</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3 class="step-title">Discovery & Audit</h3>
+        <p class="step-desc">Comprehensive analysis of your current operational infrastructure, market position, and technical requirements.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3 class="step-title">Solution Architecture</h3>
+        <p class="step-desc">Development of a custom digital blueprint, outlining the technology stack, timelines, and integration points.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3 class="step-title">Implementation</h3>
+        <p class="step-desc">Agile development and deployment of your digital assets with rigorous testing and quality assurance protocols.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3 class="step-title">Managed Operations</h3>
+        <p class="step-desc">Ongoing system maintenance, security updates, and performance optimization to ensure continuous reliability.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="signup" class="signup">
+  <div class="container">
+    <div class="signup-wrap">
+      <div class="signup-info">
+        <div class="hero-eyebrow">Partner With Us</div>
+        <h2>Initiate Your Transformation</h2>
+        <p class="tagline">"In the modern economy, digital infrastructure is not a luxury—it is the prerequisite for competitive advantage."</p>
+        <ul>
+          <li>Fully managed, enterprise-grade technology deployments</li>
+          <li>Solutions architected specifically for the Ghanaian market context</li>
+          <li>Transparent service level agreements (SLAs) and ongoing support</li>
+          <li>Focus on security, compliance, and operational efficiency</li>
+        </ul>
+      </div>
+      <div class="form-card">
+        <h3 class="form-title">Business Assessment Request</h3>
+        <p class="form-subtitle">Submit your details to schedule a technical consultation with our engineering team.</p>
+        <form id="signupForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" id="f_name" placeholder="e.g. Kwame Mensah" required>
+            </div>
+            <div class="form-group">
+              <label>Corporate Role *</label>
+              <input type="text" id="f_role" placeholder="e.g. CEO, Director of Operations" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Organization Name *</label>
+            <input type="text" id="f_company" placeholder="Registered business name" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Industry Sector *</label>
+              <select id="f_industry" required>
+                <option value="">Select industry</option>
+                <option>Financial Services</option>
+                <option>Healthcare & Life Sciences</option>
+                <option>Manufacturing & Logistics</option>
+                <option>Retail & E-commerce</option>
+                <option>Real Estate & Infrastructure</option>
+                <option>Professional Services</option>
+                <option>Technology & Telecommunications</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Organization Size</label>
+              <select id="f_size">
+                <option value="">Select employee count</option>
+                <option>1-10 Employees</option>
+                <option>11-50 Employees</option>
+                <option>51-200 Employees</option>
+                <option>201-500 Employees</option>
+                <option>500+ Employees</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Business Phone *</label>
+              <input type="tel" id="f_phone" placeholder="+233 XX XXX XXXX" required>
+            </div>
+            <div class="form-group">
+              <label>Corporate Email *</label>
+              <input type="email" id="f_email" placeholder="name@company.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Primary Operational Location</label>
+            <input type="text" id="f_location" placeholder="e.g. Accra, Ghana">
+          </div>
+          
+          <div class="pain-section">
+            <h4 class="pain-title">Current Infrastructure Constraints</h4>
+            <p class="pain-subtitle">Select the operational challenges currently impacting your business</p>
+            <div class="checkbox-grid">
+              <label class="check-item"><input type="checkbox" value="legacy_systems"> <span>Outdated legacy systems</span></label>
+              <label class="check-item"><input type="checkbox" value="data_silos"> <span>Disconnected data silos</span></label>
+              <label class="check-item"><input type="checkbox" value="manual_workflows"> <span>High volume of manual workflows</span></label>
+              <label class="check-item"><input type="checkbox" value="poor_visibility"> <span>Lack of real-time operational visibility</span></label>
+              <label class="check-item"><input type="checkbox" value="customer_acquisition"> <span>Inefficient digital customer acquisition</span></label>
+              <label class="check-item"><input type="checkbox" value="payment_friction"> <span>Digital payment & invoicing friction</span></label>
+            </div>
+
+            <div class="form-group">
+              <label>Primary Technical Objective</label>
+              <textarea id="f_challenge" placeholder="Describe the main problem you need our technology to solve..." rows="3"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary submit-btn">Request Technical Consultation</button>
+          <p class="form-note">Your data is secured according to industry standards and will only be used for evaluation purposes.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Admin Dashboard -->
+<section class="admin-section" id="adminPanel">
+  <div class="container">
+    <div id="adminLogin" class="admin-login">
+      <h3>System Administration</h3>
+      <p>Authenticate to access the central data repository.</p>
+      <div class="form-group">
+        <label>Administrator Credentials</label>
+        <input type="password" id="adminPass" placeholder="Enter secure key">
+        <p class="admin-password-hint">System default: digitaladmin2025</p>
+      </div>
+      <button class="btn btn-primary submit-btn" onclick="checkAdmin()">Authenticate</button>
+    </div>
+    
+    <div id="adminDashboard" style="display:none">
+      <div class="admin-header">
+        <div>
+          <div class="hero-eyebrow">Command Center</div>
+          <h2>Client Inquiries</h2>
+        </div>
+        <button class="btn btn-outline" style="color:#fff;border-color:#4b5563" onclick="exportCSV()">Export Data (CSV)</button>
+      </div>
+      
+      <div class="admin-stats" id="adminStats"></div>
+      
+      <div class="table-responsive">
+        <table id="adminTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Timestamp</th>
+              <th>Organization</th>
+              <th>Primary Contact</th>
+              <th>Sector</th>
+              <th>Scale</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<button class="admin-toggle" onclick="toggleAdmin()">System Admin</button>
+<div class="toast" id="toast">Assessment Request Transmitted Successfully</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">Digital<span>Allianz</span></a>
+        <p>Architecting the digital foundation for Ghana's most ambitious enterprises. Secure, scalable, and automated solutions for the modern economy.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <a href="#services">Web Engineering</a>
+        <a href="#services">Growth Strategy</a>
+        <a href="#services">Financial Intelligence</a>
+        <a href="#services">Process Automation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Corporate</h4>
+        <a href="#about">About Us</a>
+        <a href="#process">Methodology</a>
+        <a href="#signup">Consultation</a>
+        <a href="mailto:systems@digitalallianz.com">systems@digitalallianz.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Digital Allianz Technologies. All rights reserved.</span>
+      <span>Accra, Ghana</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Form Submission Logic
+  let submissions = JSON.parse(localStorage.getItem('da_corp_submissions') || '[]');
+
+  document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const painPoints = [...document.querySelectorAll('.checkbox-grid input[type="checkbox"]:checked')]
+      .map(cb => cb.value);
+
+    const entry = {
+      id: Date.now(),
+      date: new Date().toISOString().split('T')[0],
+      name: document.getElementById('f_name').value,
+      role: document.getElementById('f_role').value,
+      company: document.getElementById('f_company').value,
+      industry: document.getElementById('f_industry').value,
+      size: document.getElementById('f_size').value,
+      phone: document.getElementById('f_phone').value,
+      email: document.getElementById('f_email').value,
+      location: document.getElementById('f_location').value,
+      painPoints: painPoints,
+      challenge: document.getElementById('f_challenge').value,
+      status: 'Pending Review'
+    };
+    
+    submissions.push(entry);
+    localStorage.setItem('da_corp_submissions', JSON.stringify(submissions));
+
+    document.getElementById('signupForm').reset();
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+  });
+
+  // Administration Logic
+  function toggleAdmin() {
+    const panel = document.getElementById('adminPanel');
+    panel.classList.toggle('visible');
+    if (panel.classList.contains('visible')) {
+      panel.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  function checkAdmin() {
+    const pass = document.getElementById('adminPass').value;
+    if (pass === 'digitaladmin2025') {
+      document.getElementById('adminLogin').style.display = 'none';
+      document.getElementById('adminDashboard').style.display = 'block';
+      renderAdminTable();
+    } else {
+      alert('Authentication Failed: Invalid Credentials');
+    }
+  }
+
+  function renderAdminTable() {
+    const subs = JSON.parse(localStorage.getItem('da_corp_submissions') || '[]');
+    const tbody = document.getElementById('adminTableBody');
+    const statsEl = document.getElementById('adminStats');
+    
+    const uniqueIndustries = [...new Set(subs.map(s => s.industry).filter(Boolean))].length;
+    
+    statsEl.innerHTML = `
+      <div class="admin-stat"><div class="admin-stat-num">${subs.length}</div><div class="admin-stat-label">Total Inquiries</div></div>
+      <div class="admin-stat"><div class="admin-stat-num">${subs.filter(s=>s.status==='Pending Review').length}</div><div class="admin-stat-label">Pending Review</div></div>
+      <div class="admin-stat"><div class="admin-stat-num">${uniqueIndustries}</div><div class="admin-stat-label">Sectors Represented</div></div>
+    `;
+
+    if (subs.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:3rem;color:#6b7280">No data records found in repository.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = '';
+    // Reverse to show newest first
+    [...subs].reverse().forEach((s, index) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td style="font-family:monospace;color:#6b7280">${s.id.toString().slice(-6)}</td>
+        <td style="font-family:monospace">${s.date}</td>
+        <td><strong style="color:#fff">${s.company}</strong><br><span style="font-size:0.8rem;color:#9ca3af">${s.location || 'N/A'}</span></td>
+        <td>${s.name}<br><a href="mailto:${s.email}" style="color:var(--primary);text-decoration:none">${s.email}</a></td>
+        <td>${s.industry || 'N/A'}</td>
+        <td>${s.size || 'N/A'}</td>
+        <td><span class="badge">${s.status}</span></td>
+        <td><button class="expand-btn" onclick="toggleDetail(${s.id})">Inspect</button></td>
+      `;
+      tbody.appendChild(row);
+
+      const detailRow = document.createElement('tr');
+      detailRow.className = 'detail-row';
+      detailRow.id = `detail-${s.id}`;
+      
+      const painMap = {
+        legacy_systems: 'Legacy Systems', data_silos: 'Data Silos',
+        manual_workflows: 'Manual Workflows', poor_visibility: 'Poor Visibility',
+        customer_acquisition: 'Customer Acquisition', payment_friction: 'Payment Friction'
+      };
+      const painDisplay = (s.painPoints || []).map(p => painMap[p] || p).join(', ') || 'None reported';
+      
+      detailRow.innerHTML = `
+        <td colspan="8">
+          <div class="detail-grid">
+            <div class="detail-item"><label>Corporate Role</label><p>${s.role || 'N/A'}</p></div>
+            <div class="detail-item"><label>Contact Number</label><p>${s.phone || 'N/A'}</p></div>
+            <div class="detail-item"><label>Infrastructure Constraints</label><p>${painDisplay}</p></div>
+            <div class="detail-item"><label>Technical Objective</label><p>${s.challenge || 'N/A'}</p></div>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(detailRow);
+    });
+  }
+
+  function toggleDetail(id) {
+    const row = document.getElementById(`detail-${id}`);
+    row.classList.toggle('open');
+  }
+
+  function exportCSV() {
+    const subs = JSON.parse(localStorage.getItem('da_corp_submissions') || '[]');
+    if (!subs.length) { alert('No data to export.'); return; }
+    
+    const headers = ['Record ID','Date','Organization','Contact Name','Role','Email','Phone','Location','Industry','Scale','Constraints','Objective','Status'];
+    const rows = subs.map(s => [
+      s.id, s.date, s.company, s.name, s.role, s.email, s.phone, s.location,
+      s.industry, s.size, (s.painPoints||[]).join(';'), s.challenge, s.status
+    ].map(v => `"${(v||'').toString().replace(/"/g,'""')}"`).join(','));
+    
+    const csv = [headers.join(','), ...rows].join('\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `digital-allianz-export-${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+  }
+</script>
+</body>
+</html>
